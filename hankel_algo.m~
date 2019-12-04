@@ -1,0 +1,26 @@
+clear; clc; close all;
+
+% hankel
+% svd
+
+%% Traitement d'une trame d'un signal de parole bruité par un bruit blanc gaussien
+
+load("fcno03fz.mat");
+
+% Bruit blanc
+
+N = length(fcno03fz); % Nombre de points
+mu = 0; % Moyenne
+db = 5;
+
+% Génération du bruit
+Pbr  = (10^(db/10));
+Psig = sum(fcno03fz.^2)/N;
+sigm = Psig/Pbr;
+
+s = fcno03fz' + randn(1,N).*sqrt(sigm);
+
+L = 1:31125;
+M = 31126:53249;
+
+
