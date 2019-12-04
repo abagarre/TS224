@@ -31,4 +31,15 @@ M = S(1,120:208); % Construction du vecteur M (L > M)
 
 Matrice_hankel = hankel(L,M);
 
+[U,Somme,V] = svd(Matrice_hankel);
+D = diag(Somme);
+
+Somme_valeur_singuliere = sum(D);
+
+figure; hold on;
+for l = 1:length(D)
+    plot(l,sum(D(1:l))/Somme_valeur_singuliere);
+end
+
+
 
