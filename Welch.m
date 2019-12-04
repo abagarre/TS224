@@ -16,42 +16,6 @@ window = hanning(Nfft2); % Génération d'une fenêtre de Hamming
 
 %% Algorithme du périodogramme de Welch
 
-% Chaîne Tx
-
-
-b = randi([0,1],1,Nb);
-
-p0 = ones(1,Fse);
-
-p1 = ones(1,Fse);
-
-for i = 1:Fse
-    if i < 11
-        p0(i) = 0;
-    end
-end
-
-for i = 1:Fse
-    if i > 10
-        p1(i) = 0;
-    end
-end
-
-sl = ones(1,length(b)*Fse);
-slexp = sl;
-
-for y = 1:length(b)
-    if b(y) == 0
-        for j = 1:Fse
-            sl((y-1)*20+j) = p0(j);
-        end
-    else
-        for k = 1:Fse
-            sl((y-1)*20+k) = p1(k);
-        end
-    end
-end
-
 DSP = zeros(1,Nfft);
 
 for i = 1:100
