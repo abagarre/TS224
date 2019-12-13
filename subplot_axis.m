@@ -1,4 +1,4 @@
-function [] = subplot_axis(x, y, val)
+function [] = subplot_axis(x, y, val, titre, labelx, labely)
 
 subplot(val);
 if x == 0
@@ -8,5 +8,9 @@ else
     plot(x,y);
     axis([min(x) max(x) min(y) max(y)]);
 end
+
+title(titre);
+xlabel(labelx);
+ylabel(labely);
 
 end

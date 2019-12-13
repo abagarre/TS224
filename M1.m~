@@ -15,19 +15,19 @@ b = mu + randn(1,N)*sigma;
 
 % Estimateur biaisé
 Rbb_b = xcorr(b, 'biased');
-figure, plot(-N+1:N-1, Rbb_b), title('Estimateur biaisé'), xlabel('tau'), ylabel('Rbb');
+% figure, plot(-N+1:N-1, Rbb_b), title('Estimateur biaisé'), xlabel('tau'), ylabel('Rbb');
 % Estimateur non biaisé
 Rbb_nb = xcorr(b, 'unbiased');
-figure, plot(-N+1:N-1, Rbb_nb), title('Estimateur non biaisé'), xlabel('tau'), ylabel('Rbb');
+% figure, plot(-N+1:N-1, Rbb_nb), title('Estimateur non biaisé'), xlabel('tau'), ylabel('Rbb');
 
 % Spectre de puissance
 SP = abs(fftshift(fft(b))).^2/(2*N);
-% figure, stem(-N/2:N/2-1, SP), title('SP');
+figure, stem(-N/2:N/2-1, SP), title('SP');
 
 % Densité spectrale de puissance
 % figure, plot(-N+1:N-1, sigma^2*ones(1,2*N-1)), title('DSP');
 
-%% 
+%% PRÉLIMINAIRE 2
 
 Nfft = 2^10; % Nombre de points pour la fft
 window = hamming(Nfft); % Fenêtre
@@ -46,14 +46,11 @@ while index+Nfft-1 < length(b)
 end
 
 pw = pw./(i*norm(window)^2); % Normalisation
-figure, plot(-Nfft/2:Nfft/2-1,pw);
+% figure, plot(-Nfft/2:Nfft/2-1,pw);
 
 % Periodogramme de Daniell
 
 % Corrélogramme
-Rbb = xcorr(b);
-C = abs(fftshift(fft(Rbb)))/(2*N);
-% figure, stem(-N+1:N-1,C); % Equivalent SP
-
-
+C = fftshift(abs(fft(Rbb_b)));
+figure, stem(-N+1:N-1,C);
 

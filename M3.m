@@ -1,8 +1,8 @@
 clear; clc; close all;
 
-%% %%%%%%%%%%%%
+%% %%%%%%%%% %%
 %% Préambule %%
-%% %%%%%%%%%%%%
+%% %%%%%%%%% %%
 
 load("fcno03fz.mat");
 
@@ -18,3 +18,4 @@ B_win = decoupage(fcno03fz, power_divide, N);
 
 B_M = reconstruction(B_win, power_divide, N, L);
 
+plot_axis(0, B_M, "Signal reconstruit", "Temps", "Amplitude");

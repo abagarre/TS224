@@ -8,7 +8,6 @@ clear; clc; close all;
 load("fcno03fz.mat");
 
 fe = 8e3; % Fréquence échantillonnage
-T = 0:1/fe:length(fcno03fz)/fe-1/fe; % Echelle de temps
 
 % Bruit blanc
 
@@ -24,15 +23,13 @@ sigm = Psig/Pbr;
 s = fcno03fz' + randn(1,N).*sqrt(sigm);
 
 figure;
-subplot_axis(T, fcno03fz, 211, "Signal original", "Temps (s)", "Amplitude");
-subplot_axis(T, s, 212, "Signal bruité", "Temps (s)", "Amplitude");
+subplot_axis(0, fcno03fz, 211, "Signal original", "Temps (s)", "Amplitude");
+subplot_axis(0, s, 212, "Signal bruité", "Temps (s)", "Amplitude");
 
 % Spectrogramme
 
 Nfft = 2^8;
 
 figure;
-subplot 121, spectrogram(s, ones(1,Nfft), 128, Nfft, fe);
-title("Signal bruité");
-subplot 122, spectrogram(fcno03fz, ones(1,Nfft), 128, Nfft, fe);
-title("Signal original");
+subplot 121, spectrogram(s, ones(1,Nfft), 128, Nfft);
+subplot 122, spectrogram(fcno03fz, ones(1,Nfft), 128, Nfft);

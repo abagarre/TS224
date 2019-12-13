@@ -1,4 +1,4 @@
-function [] = plot_axis(x, y)
+function [] = plot_axis(x, y, titre, labelx, labely)
 
 figure;
 
@@ -9,5 +9,9 @@ else
     plot(x,y);
     axis([min(x) max(x) min(y) max(y)]);
 end
+
+title(titre);
+xlabel(labelx);
+ylabel(labely);
 
 end
