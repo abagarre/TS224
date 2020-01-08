@@ -7,6 +7,7 @@ load("fcno03fz.mat");
 % Bruit blanc
 
 Len = length(fcno03fz);
+s = fcno03fz';
 mu = 0; % Moyenne
 
 % Génération du bruit
@@ -15,12 +16,14 @@ Pbr  = (10^(db/10));
 Psig = sum(fcno03fz.^2)/Len;
 sigm = Psig/Pbr;
 
-s = fcno03fz' + randn(1,Len).*sqrt(sigm);
+s_bruit = fcno03fz' + randn(1,Len).*sqrt(sigm);
 
 power_divide = 8;
 N = Len/2^power_divide;
 
-S = decoupage(s, power_divide, N);
+S = decoupage(s_bruit, N);
+s = buffer(s, N, N/2, 'nodelay')';
+s_bruit = buffer(s_bruit, N, N/2, 'nodelay')';
 
 S_rec = zeros(size(S));
 
@@ -62,7 +65,21 @@ end
 
 S_final = reconstruction(S_rec, power_divide, N, Len);
 
-plot_axis(0, S_final, "Signal réhaussé", "Temps", "Amplitude");
+% plot_axis(0, S_final, "Signal réhaussé", "Temps", "Amplitude");
 
 snr(fcno03fz, S_final-fcno03fz)
+
+S_final_trame = buffer(S_final, N, N/2, 'nodelay')';
+
+figure();
+hold on;
+plot(s(200,:),"r");
+plot(s_bruit(200,:),"b");
+plot(S_final_trame(200,:),"g");
+title("Comparaison de trame temporelle")
+xlabel("Temps");
+ylabel("Amplitude");
+legend("trame originale","trame bruitée","trame réhaussée");
+
+
 

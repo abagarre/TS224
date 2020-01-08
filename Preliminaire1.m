@@ -17,27 +17,27 @@ b = mu + randn(1,N)*sigma; % Génération du signal bruité
 
 [Rbb_theorique, LAGS] = xcorr(b,'coeff'); % Fonction d'autocorrélation théorique du signal bruité
 
-%figure(1);
-%plot(LAGS, Rbb_theorique); % Représentation graphique de la fonction d'autocorrélation
-title('Fonction dautocorrélation théorique dun bruit blanc');
+figure(1);
+plot(LAGS, Rbb_theorique); % Représentation graphique de la fonction d'autocorrélation
+title("Fonction d'autocorrélation théorique d'un bruit blanc");
 xlabel('Tau');
 ylabel('Rbb');
 
 
 [Estimateur_biase, LAGS] = xcorr(b, 'biased'); % Estimateur biaisé de la fonction d'autocorrélation théorique du signal bruité
 
-%figure(2);
-%plot(LAGS, Estimateur_biase); % Représentation graphique de l'estimateur biaisé de la fonction d'autocorrélation
-title('Estimateur biaisé de la fonction dautocorrélation théorique dun bruit blanc');
+figure(2);
+plot(LAGS, Estimateur_biase); % Représentation graphique de l'estimateur biaisé de la fonction d'autocorrélation
+title("Estimateur biaisé");
 xlabel('Tau');
 ylabel('Rbb');
 
 
 [Estimateur_non_biase, LAGS] = xcorr(b, 'unbiased'); % Estimateur non biaisé de la fonction d'autocorrélation théorique du signal bruité
 
-%figure(3);
-%plot(LAGS, Estimateur_non_biase); % Représentation graphique de l'estimateur non biaisé de la fonction d'autocorrélation
-title('Estimateur non biaisé de la fonction dautocorrélation théorique dun bruit blanc');
+figure(3);
+plot(LAGS, Estimateur_non_biase); % Représentation graphique de l'estimateur non biaisé de la fonction d'autocorrélation
+title("Estimateur non biaisé");
 xlabel('Tau');
 ylabel('Rbb');
 
@@ -99,14 +99,23 @@ end
 pwelch = pwelch./(k*norm(window_welch)^2); % Normalisation
 figure(6);
 plot(-Nfft/2:Nfft/2-1,pwelch); % Représentation graphique du periodogramme de Welch
+title('Représentation graphique du periodogramme de Welch');
+xlabel('Fréquence');
+ylabel('Puissance Spectrale');
 
 pbartlett = pbartlett./(k*norm(window_bartlett)^2); % Normalisation
 figure(7);
 plot(-Nfft/2:Nfft/2-1,pbartlett); % Représentation graphique du periodogramme de Bartlett
+title('Représentation graphique du periodogramme de Bartlett');
+xlabel('Fréquence');
+ylabel('Puissance Spectrale');
 
 pdaniell = pdaniell./N; % Normalisation
 figure(8);
 plot(-N/2:N/2-1,pdaniell); % Représentation graphique du periodogramme de Daniell
+title('Représentation graphique du periodogramme de Daniell');
+xlabel('Fréquence');
+ylabel('Puissance Spectrale');
 
 
 

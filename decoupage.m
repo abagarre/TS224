@@ -1,4 +1,4 @@
-function [B_win] = decoupage(sig, power_divide, N)
+function [B_win] = decoupage(sig, N)
 
 %% Découpage en trames
 
